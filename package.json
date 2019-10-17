@@ -1,0 +1,112 @@
+{
+	"name": "redoc-viewer",
+	"displayName": "ReDoc Viewer",
+	"description": "Preview OpenAPI files in ReDoc",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onLanguage:yaml",
+		"onLanguage:json",
+		"onLanguage:plaintext"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.previewReDoc",
+				"title": "Preview ReDoc"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "ReDoc Viewer Configuration",
+			"properties": {
+				"swaggerViewer.defaultHost": {
+					"type": "string",
+					"default": "localhost",
+					"description": "Default host in which the preview should be opened."
+				},
+				"swaggerViewer.defaultPort": {
+					"type": "integer",
+					"default": 9000,
+					"description": "Default port in which the preview should be opened."
+				},
+				"swaggerViewer.previewInBrowser": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to open preview in browser, default: preview inside vscode"
+				},
+				"swaggerViewer.showOnlyFileName": {
+					"type": "boolean",
+					"default": false,
+					"description": "Whether to show only the filename in the preview title, default: show filename along with path"
+				}
+			}
+		},
+		"keybindings": [
+			{
+				"command": "extension.previewReDoc",
+				"key": "shift+alt+p",
+				"mac": "shift+alt+p",
+				"when": "editorTextFocus"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "resourceLangId == json",
+					"command": "extension.previewReDoc",
+					"group": "ReDocViewer"
+				},
+				{
+					"when": "resourceLangId == yaml",
+					"command": "extension.previewReDoc",
+					"group": "ReDocViewer"
+				},
+				{
+					"when": "resourceLangId == yml",
+					"command": "extension.previewReDoc",
+					"group": "ReDocViewer"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "yarn run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "yarn run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.39.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"tslint": "^5.12.1",
+		"typescript": "^3.3.1",
+		"vscode": "^1.1.36",
+		"vscode-test": "^1.2.0",
+		"@types/express": "^4.16.0",
+		"@types/js-yaml": "^3.11.2",
+		"@types/socket.io": "^1.4.36",
+		"@types/swagger-parser": "^4.0.3"
+	},
+	"dependencies": {
+		"@types/express": "^4.17.1",
+		"@types/js-yaml": "^3.12.1",
+		"express": "^4.17.1",
+		"js-yaml": "^3.13.1",
+		"socket.io": "^2.3.0",
+		"swagger-parser": "^8.0.2",
+		"vscode-languageclient": "^5.2.1",
+		"vscode-languageserver": "^5.2.1"
+	}
+}
