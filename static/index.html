@@ -15,7 +15,11 @@
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
         <script>
-
+			const redocOpts = {
+				expandResponses: "200",
+				sortPropsAlphabetically: true,
+				requiredPropsFirst: true,
+			}
             window.onload = function () {
                 const socket = io.connect();
                 const fileHash = '%FILE_HASH%';
@@ -23,15 +27,14 @@
                 socket.emit('GET_INITIAL', {
                     fileHash
                 }, (jsonSpec) => {
-                    Redoc.init(jsonSpec);
+                    Redoc.init(jsonSpec, redocOpts);
                 });
 
                 socket.on("TEXT_UPDATE", function (jsonSpec) {
-                    Redoc.init(jsonSpec);
+                    Redoc.init(jsonSpec, redocOpts);
                 });
             }
         </script>
 
     </body>
-
 </html>
